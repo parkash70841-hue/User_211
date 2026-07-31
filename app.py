@@ -22,7 +22,7 @@ YOUR_EMAIL = "kaka70841@gmail.com"
 ADMIN_PASSWORD = "admin_password_2026"
 
 # Dynamic Logo Settings (Can be updated via /admin)
-CURRENT_LOGO_URL = "https://i.ibb.co/6R2N2T9/11517-2.jpg"  # Default fallback image
+CURRENT_LOGO_URL = "https://i.ibb.co/6R2N2T9/11517-2.jpg"
 FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2310B981'><circle cx='50' cy='50' r='50' fill='%231E293B'/><text x='50%' y='55%' font-family='sans-serif' font-weight='800' font-size='20' fill='%2310B981' text-anchor='middle' dominant-baseline='middle'>U211</text></svg>"
 
 LEADS_DATABASE = []
@@ -189,28 +189,33 @@ SITE_HTML = """
         .btn-dm-insta { background: rgba(255, 255, 255, 0.08); color: white; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.12); }
         .btn-dm-wa { background: #10b981; color: #0b0f17; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; }
 
-        /* Grid Cards */
+        /* Grid Cards - Fixed Mobile Overlap Layout */
         .card-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
         .service-card { 
             background: rgba(15, 23, 42, 0.6); 
             border: 1px solid rgba(255, 255, 255, 0.07); 
             border-radius: 16px; 
             padding: 20px; 
-            position: relative;
+        }
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 4px;
         }
         .price-tag { 
-            position: absolute; 
-            top: 20px; 
-            right: 20px; 
             background: rgba(16, 185, 129, 0.12); 
             color: #10b981; 
             border: 1px solid rgba(16, 185, 129, 0.3); 
-            padding: 4px 12px; 
+            padding: 4px 10px; 
             border-radius: 20px; 
-            font-size: 12px; 
+            font-size: 11px; 
             font-weight: 800; 
+            white-space: nowrap;
+            flex-shrink: 0;
         }
-        .card-title { font-size: 17px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+        .card-title { font-size: 16px; font-weight: 800; color: #ffffff; line-height: 1.3; }
         .card-sub { font-size: 12px; color: #94a3b8; font-weight: 600; margin-bottom: 14px; }
         .card-list { font-size: 12px; color: #cbd5e1; list-style: none; }
         .card-list li { margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
@@ -352,8 +357,10 @@ SITE_HTML = """
         <div class="card-grid">
             
             <div class="service-card">
-                <span class="price-tag">₹1,999</span>
-                <div class="card-title">💻 Web App Setup</div>
+                <div class="card-header-flex">
+                    <div class="card-title">💻 Web App Setup</div>
+                    <span class="price-tag">₹1,999</span>
+                </div>
                 <div class="card-sub">Complete Business or E-Commerce Site</div>
                 <ul class="card-list">
                     <li>✅ Mobile Responsive Design</li>
@@ -363,8 +370,10 @@ SITE_HTML = """
             </div>
 
             <div class="service-card">
-                <span class="price-tag">₹299 / Mo</span>
-                <div class="card-title">⚙️ Web Maintenance</div>
+                <div class="card-header-flex">
+                    <div class="card-title">⚙️ Web Maintenance</div>
+                    <span class="price-tag">₹299 / Mo</span>
+                </div>
                 <div class="card-sub">Ongoing Support & Upgrades</div>
                 <ul class="card-list">
                     <li>✅ Regular Code & Security Backups</li>
@@ -374,8 +383,10 @@ SITE_HTML = """
             </div>
 
             <div class="service-card" style="border-color: rgba(16, 185, 129, 0.4);">
-                <span class="price-tag">₹349 (COMBO)</span>
-                <div class="card-title">🔥 Diet + Workout Combo</div>
+                <div class="card-header-flex">
+                    <div class="card-title">🔥 Diet + Workout Combo</div>
+                    <span class="price-tag">₹349 (COMBO)</span>
+                </div>
                 <div class="card-sub">Full Fitness Transformation Package</div>
                 <ul class="card-list">
                     <li>✅ Customized Diet Chart (Veg/Non-Veg)</li>
@@ -385,8 +396,10 @@ SITE_HTML = """
             </div>
 
             <div class="service-card">
-                <span class="price-tag">₹199 Each</span>
-                <div class="card-title">🏋️‍♂️ Single Plan (Diet or Workout)</div>
+                <div class="card-header-flex">
+                    <div class="card-title">🏋️‍♂️ Single Plan (Diet or Workout)</div>
+                    <span class="price-tag">₹199 Each</span>
+                </div>
                 <div class="card-sub">Choose Diet Chart OR Workout Plan</div>
                 <ul class="card-list">
                     <li>✅ Workout Plan Only: ₹199</li>
@@ -396,8 +409,10 @@ SITE_HTML = """
             </div>
 
             <div class="service-card">
-                <span class="price-tag">₹149 / Poster</span>
-                <div class="card-title">🖼️ Poster Design</div>
+                <div class="card-header-flex">
+                    <div class="card-title">🖼️ Poster Design</div>
+                    <span class="price-tag">₹149 / Poster</span>
+                </div>
                 <div class="card-sub">Shop, Gym & Business Posters</div>
                 <ul class="card-list">
                     <li>✅ Custom Creative Graphics & Layouts</li>
@@ -407,8 +422,10 @@ SITE_HTML = """
             </div>
 
             <div class="service-card">
-                <span class="price-tag">₹99 / Post</span>
-                <div class="card-title">🎨 Instagram Post Design</div>
+                <div class="card-header-flex">
+                    <div class="card-title">🎨 Instagram Post Design</div>
+                    <span class="price-tag">₹99 / Post</span>
+                </div>
                 <div class="card-sub">Social Media Banners & Stories</div>
                 <ul class="card-list">
                     <li>✅ Instagram Reels/Posts Graphics</li>
@@ -536,7 +553,6 @@ ADMIN_HTML = """
       {% endif %}
     {% endwith %}
 
-    <!-- Logo Manager Section -->
     <div class="manager-card">
         <h3>🖼️ Live Logo Manager</h3>
         <p>Paste any direct image link below (e.g. from ImgBB or PostImages) to change your website logo instantly!</p>
