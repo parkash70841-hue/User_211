@@ -21,8 +21,8 @@ WHATSAPP_NUMBER = "917347504051"
 YOUR_EMAIL = "kaka70841@gmail.com"
 ADMIN_PASSWORD = "admin_password_2026"
 
-# Dynamic Logo Settings (Can be updated via /admin)
-CURRENT_LOGO_URL = "https://i.ibb.co/6R2N2T9/11517-2.jpg"
+# Permanent Direct Logo Link
+CURRENT_LOGO_URL = "https://i.postimg.cc/wBw41N4F/d9df94b8bea76ab2246d3375b3b80ee0.jpg"
 FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2310B981'><circle cx='50' cy='50' r='50' fill='%231E293B'/><text x='50%' y='55%' font-family='sans-serif' font-weight='800' font-size='20' fill='%2310B981' text-anchor='middle' dominant-baseline='middle'>U211</text></svg>"
 
 LEADS_DATABASE = []
@@ -555,9 +555,9 @@ ADMIN_HTML = """
 
     <div class="manager-card">
         <h3>🖼️ Live Logo Manager</h3>
-        <p>Paste any direct image link below (e.g. from ImgBB or PostImages) to change your website logo instantly!</p>
+        <p>Paste any direct image link below to update your logo dynamically!</p>
         <form action="/admin/update_logo" method="POST">
-            <input type="url" name="logo_url" class="form-control" placeholder="https://i.ibb.co/your-image.jpg" value="{{ logo }}" required>
+            <input type="url" name="logo_url" class="form-control" placeholder="https://i.postimg.cc/your-image.jpg" value="{{ logo }}" required>
             <button type="submit" class="save-btn">UPDATE WEBSITE LOGO 🚀</button>
         </form>
     </div>
