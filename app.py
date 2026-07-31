@@ -26,7 +26,7 @@ CURRENT_LOGO_URL = "https://i.postimg.cc/wBw41N4F/d9df94b8bea76ab2246d3375b3b80e
 FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2310B981'><circle cx='50' cy='50' r='50' fill='%231E293B'/><text x='50%' y='55%' font-family='sans-serif' font-weight='800' font-size='20' fill='%2310B981' text-anchor='middle' dominant-baseline='middle'>U211</text></svg>"
 
 LEADS_DATABASE = []
-VISIT_LOGS = []  # List of timestamps for visit analytics
+VISIT_LOGS = []
 
 # ==========================================
 # SECURITY HEADERS & HELPERS
@@ -208,6 +208,34 @@ SITE_HTML = """
             box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25); 
         }
 
+        /* Response Time Badge */
+        .response-badge {
+            margin-top: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #10b981;
+        }
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+            animation: pulse 1.6s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
         .container { padding: 24px 20px; max-width: 600px; margin: auto; }
         .section-title { font-size: 18px; font-weight: 800; margin: 30px 0 16px; color: #ffffff; text-align: center; letter-spacing: -0.3px; }
 
@@ -258,6 +286,65 @@ SITE_HTML = """
         .card-sub { font-size: 12px; color: #94a3b8; font-weight: 600; margin-bottom: 14px; }
         .card-list { font-size: 12px; color: #cbd5e1; list-style: none; }
         .card-list li { margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+
+        /* Rating & Review Section */
+        .rating-box {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .rating-score { font-size: 28px; font-weight: 800; color: #ffffff; }
+        .stars { color: #f59e0b; font-size: 18px; margin: 4px 0; }
+        .rating-count { font-size: 12px; color: #94a3b8; margin-bottom: 16px; }
+        .review-card {
+            background: rgba(11, 15, 23, 0.6);
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: left;
+            margin-bottom: 10px;
+            font-size: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .reviewer-name { font-weight: 800; color: #ffffff; display: flex; justify-content: space-between; margin-bottom: 4px; }
+
+        /* FAQ Accordion */
+        .faq-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 10px 16px;
+            margin-top: 20px;
+        }
+        details {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px 0;
+        }
+        details:last-child { border-bottom: none; }
+        summary {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            cursor: pointer;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: "＋"; color: #10b981; font-weight: 800; }
+        details[open] summary::after { content: "－"; }
+        .faq-answer {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
 
         /* Form Card */
         .form-card { 
@@ -380,7 +467,15 @@ SITE_HTML = """
         <span class="hero-badge">OFFICIAL FREELANCE STUDIO</span>
         <h1>Websites, Fitness Plans & Graphic Designs</h1>
         <p>High-performing web development, custom fitness schedules, and social media content created directly for you.</p>
+        
         <a href="#order-form" class="hero-cta">HIRE USER_211 →</a>
+        
+        <br>
+        <!-- Dynamic Response Time Badge -->
+        <div class="response-badge">
+            <span class="pulse-dot"></span>
+            <span>⚡ Usually replies within 30 minutes</span>
+        </div>
     </div>
 
     <div class="container">
@@ -479,6 +574,58 @@ SITE_HTML = """
 
         </div>
 
+        <!-- Rating & Testimonials Section -->
+        <div class="rating-box">
+            <div class="rating-score">4.9 / 5.0</div>
+            <div class="stars">★★★★★</div>
+            <div class="rating-count">Based on 35+ Verified Client Reviews</div>
+
+            <div class="review-card">
+                <div class="reviewer-name"><span>Rahul V. (Gym Owner)</span> <span style="color:#f59e0b;">★★★★★</span></div>
+                <div>"Super fast web deployment! My studio site was live within hours and the Telegram alerts work flawlessly."</div>
+            </div>
+
+            <div class="review-card">
+                <div class="reviewer-name"><span>Aman S. (Fitness Client)</span> <span style="color:#f59e0b;">★★★★★</span></div>
+                <div>"The Diet + Workout Combo for ₹349 is 100% worth it. Personalized according to my busy routine."</div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="section-title">Frequently Asked Questions</div>
+        
+        <div class="faq-card">
+            <details>
+                <summary>How long does delivery take?</summary>
+                <div class="faq-answer">
+                    • <b>Posters & Instagram Designs:</b> Delivered within 24 hours.<br>
+                    • <b>Fitness & Diet Charts:</b> Delivered within 12–24 hours.<br>
+                    • <b>Web Development:</b> 1 to 3 days depending on custom features.
+                </div>
+            </details>
+
+            <details>
+                <summary>What payment methods do you accept?</summary>
+                <div class="faq-answer">
+                    We accept all major payment options via UPI (Google Pay, PhonePe, Paytm), Net Banking, and direct bank transfer.
+                </div>
+            </details>
+
+            <details>
+                <summary>Do you offer revisions?</summary>
+                <div class="faq-answer">
+                    Yes! We offer <b>unlimited minor revisions</b> on graphic poster designs and fitness plans until you are completely satisfied.
+                </div>
+            </details>
+
+            <details>
+                <summary>How do I receive my final files?</summary>
+                <div class="faq-answer">
+                    All high-resolution graphics, PDF diet plans, and web access details are delivered directly via WhatsApp or Email.
+                </div>
+            </details>
+        </div>
+
         <!-- Booking / Order Form -->
         <div class="form-card" id="order-form">
             <h2>Book a Service / Inquire</h2>
@@ -526,7 +673,7 @@ SITE_HTML = """
             <div class="contact-row">📸 <b>Instagram:</b> @{{ insta }}</div>
             <div class="contact-row">💬 <b>WhatsApp:</b> +91 {{ phone }}</div>
             <div class="contact-row">✉️ <b>Email:</b> {{ email }}</div>
-            <div class="contact-row">⚡ <b>Response Time:</b> Within 15-30 Minutes</div>
+            <div class="contact-row">⚡ <b>Response Time:</b> Usually replies within 30 minutes</div>
         </div>
 
     </div>
@@ -633,7 +780,6 @@ ADMIN_HTML = """
         .brand-logo { font-size: 18px; font-weight: 800; color: #ffffff; }
         .avatar-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid #10b981; }
 
-        /* Professional Stats Dashboard Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px; }
         @media (min-width: 600px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
         
@@ -685,7 +831,6 @@ ADMIN_HTML = """
       {% endif %}
     {% endwith %}
 
-    <!-- Analytics Dashboard Cards -->
     <div class="section-hdr">
         <span>📊 Website Analytics & Traffic</span>
     </div>
@@ -709,7 +854,6 @@ ADMIN_HTML = """
         </div>
     </div>
 
-    <!-- Logo Manager Section -->
     <div class="manager-card">
         <h3>🖼️ Live Logo Manager</h3>
         <p>Paste any direct image link below to update your website logo instantly.</p>
@@ -756,7 +900,6 @@ ADMIN_HTML = """
 # ==========================================
 @app.route('/')
 def home():
-    # Record visitor timestamp
     VISIT_LOGS.append(datetime.now())
 
     return render_template_string(
