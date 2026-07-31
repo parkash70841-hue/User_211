@@ -2,7 +2,7 @@ import os
 import re
 import html
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Flask, render_template_string, request, flash, redirect, url_for, session
 
 app = Flask(__name__)
@@ -26,6 +26,7 @@ CURRENT_LOGO_URL = "https://i.postimg.cc/wBw41N4F/d9df94b8bea76ab2246d3375b3b80e
 FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2310B981'><circle cx='50' cy='50' r='50' fill='%231E293B'/><text x='50%' y='55%' font-family='sans-serif' font-weight='800' font-size='20' fill='%2310B981' text-anchor='middle' dominant-baseline='middle'>U211</text></svg>"
 
 LEADS_DATABASE = []
+VISIT_LOGS = []  # List of timestamps for visit analytics
 
 # ==========================================
 # SECURITY HEADERS & HELPERS
@@ -61,6 +62,24 @@ def send_telegram_lead(name, phone, service, details):
     except Exception as e:
         print("Telegram Error:", e)
 
+def get_visit_stats():
+    now = datetime.now()
+    today_start = datetime(now.year, now.month, now.day)
+    week_start = now - timedelta(days=7)
+    month_start = datetime(now.year, now.month, 1)
+
+    today_count = sum(1 for v in VISIT_LOGS if v >= today_start)
+    week_count = sum(1 for v in VISIT_LOGS if v >= week_start)
+    month_count = sum(1 for v in VISIT_LOGS if v >= month_start)
+    total_count = len(VISIT_LOGS)
+
+    return {
+        "today": today_count,
+        "week": week_count,
+        "month": month_count,
+        "total": total_count
+    }
+
 # ==========================================
 # MAIN PUBLIC UI TEMPLATE
 # ==========================================
@@ -81,11 +100,29 @@ SITE_HTML = """
             line-height: 1.6; 
             padding-bottom: 90px; 
             -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 3D Background Canvas */
+        #bg-3d-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        header, .hero, .container, .bottom-bar {
+            position: relative;
+            z-index: 10;
         }
 
         /* Sleek Header */
         header { 
-            background: rgba(11, 15, 23, 0.9); 
+            background: rgba(11, 15, 23, 0.85); 
             backdrop-filter: blur(16px); 
             -webkit-backdrop-filter: blur(16px); 
             padding: 14px 20px; 
@@ -176,7 +213,8 @@ SITE_HTML = """
 
         /* Sample Box */
         .sample-box {
-            background: rgba(30, 41, 59, 0.4);
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             padding: 20px;
@@ -189,10 +227,11 @@ SITE_HTML = """
         .btn-dm-insta { background: rgba(255, 255, 255, 0.08); color: white; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.12); }
         .btn-dm-wa { background: #10b981; color: #0b0f17; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; }
 
-        /* Grid Cards - Fixed Mobile Overlap Layout */
+        /* Grid Cards */
         .card-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
         .service-card { 
-            background: rgba(15, 23, 42, 0.6); 
+            background: rgba(15, 23, 42, 0.75); 
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.07); 
             border-radius: 16px; 
             padding: 20px; 
@@ -222,7 +261,8 @@ SITE_HTML = """
 
         /* Form Card */
         .form-card { 
-            background: rgba(15, 23, 42, 0.8); 
+            background: rgba(15, 23, 42, 0.85); 
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1); 
             border-radius: 20px; 
             padding: 24px 20px; 
@@ -262,7 +302,8 @@ SITE_HTML = """
         .toast { background: #10b981; color: #0b0f17; padding: 12px; border-radius: 10px; text-align: center; font-weight: 800; font-size: 13px; margin-bottom: 18px; }
 
         .contact-card { 
-            background: rgba(15, 23, 42, 0.5); 
+            background: rgba(15, 23, 42, 0.75); 
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.06); 
             border-radius: 14px; 
             padding: 18px; 
@@ -317,6 +358,8 @@ SITE_HTML = """
     </style>
 </head>
 <body>
+
+    <canvas id="bg-3d-canvas"></canvas>
 
     <!-- Header -->
     <header>
@@ -496,34 +539,122 @@ SITE_HTML = """
         <a href="#order-form" class="btn-book">Book Service</a>
     </div>
 
+    <script>
+        const canvas = document.getElementById('bg-3d-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+        const particleCount = window.innerWidth < 600 ? 35 : 65;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(16, 185, 129, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(16, 185, 129, ${0.25 - dist / 480})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+
 </body>
 </html>
 """
 
 # ==========================================
-# SECURE ADMIN PANEL HTML (WITH LOGO MANAGER)
+# SECURE ADMIN PANEL WITH ANALYTICS DASHBOARD
 # ==========================================
 ADMIN_HTML = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>USER_211 Admin Dashboard</title>
+    <title>USER_211 Professional Admin Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0b0f17; color: #f8fafc; padding: 20px; max-width: 800px; margin: auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 15px; margin-bottom: 20px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0b0f17; color: #f8fafc; padding: 20px; max-width: 900px; margin: auto; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 15px; margin-bottom: 24px; }
         .brand-container { display: flex; align-items: center; gap: 10px; }
         .brand-logo { font-size: 18px; font-weight: 800; color: #ffffff; }
         .avatar-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid #10b981; }
+
+        /* Professional Stats Dashboard Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px; }
+        @media (min-width: 600px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
         
+        .stat-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-val { font-size: 24px; font-weight: 800; color: #10b981; margin-top: 4px; }
+        .stat-lbl { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+
         .manager-card { background: rgba(15, 23, 42, 0.8); border: 1px solid #10b981; border-radius: 14px; padding: 20px; margin-bottom: 25px; }
-        .manager-card h3 { font-size: 16px; margin-bottom: 6px; color: #ffffff; }
+        .manager-card h3 { font-size: 15px; margin-bottom: 4px; color: #ffffff; }
         .manager-card p { font-size: 12px; color: #94a3b8; margin-bottom: 14px; }
         .form-control { width: 100%; padding: 10px 12px; background: #0b0f17; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; font-size: 12px; margin-bottom: 10px; outline: none; }
         .save-btn { background: #10b981; color: #0b0f17; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer; }
 
+        .section-hdr { font-size: 16px; font-weight: 800; color: #ffffff; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+        
         .lead-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
         .lead-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .lead-name { font-weight: 800; font-size: 16px; color: #ffffff; }
@@ -537,10 +668,11 @@ ADMIN_HTML = """
     </style>
 </head>
 <body>
+
     <div class="header">
         <div class="brand-container">
             <img src="{{ logo }}" class="avatar-img" onerror="this.src='{{ fallback_logo }}'">
-            <div class="brand-logo">USER_211 Admin</div>
+            <div class="brand-logo">USER_211 Dashboard</div>
         </div>
         <a href="/admin_logout" style="color:#94a3b8; text-decoration:none; font-size:12px; font-weight:600;">Logout</a>
     </div>
@@ -553,17 +685,43 @@ ADMIN_HTML = """
       {% endif %}
     {% endwith %}
 
+    <!-- Analytics Dashboard Cards -->
+    <div class="section-hdr">
+        <span>📊 Website Analytics & Traffic</span>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-lbl">Today</div>
+            <div class="stat-val">{{ stats.today }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-lbl">This Week</div>
+            <div class="stat-val">{{ stats.week }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-lbl">This Month</div>
+            <div class="stat-val">{{ stats.month }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-lbl">Total Visits</div>
+            <div class="stat-val">{{ stats.total }}</div>
+        </div>
+    </div>
+
+    <!-- Logo Manager Section -->
     <div class="manager-card">
         <h3>🖼️ Live Logo Manager</h3>
-        <p>Paste any direct image link below to update your logo dynamically!</p>
+        <p>Paste any direct image link below to update your website logo instantly.</p>
         <form action="/admin/update_logo" method="POST">
             <input type="url" name="logo_url" class="form-control" placeholder="https://i.postimg.cc/your-image.jpg" value="{{ logo }}" required>
             <button type="submit" class="save-btn">UPDATE WEBSITE LOGO 🚀</button>
         </form>
     </div>
 
-    <h3>📥 Client Orders & Inquiries</h3>
-    <br>
+    <div class="section-hdr">
+        <span>📥 Orders & Inquiries ({{ leads|length }})</span>
+    </div>
 
     {% if leads %}
         {% for l in leads[::-1] %}
@@ -584,7 +742,7 @@ ADMIN_HTML = """
         </div>
         {% endfor %}
     {% else %}
-        <p style="color:#94a3b8; text-align:center;">No inquiries received yet.</p>
+        <p style="color:#94a3b8; text-align:center; padding: 20px 0;">No inquiries received yet.</p>
     {% endif %}
 
     <br>
@@ -598,6 +756,9 @@ ADMIN_HTML = """
 # ==========================================
 @app.route('/')
 def home():
+    # Record visitor timestamp
+    VISIT_LOGS.append(datetime.now())
+
     return render_template_string(
         SITE_HTML, 
         whatsapp=WHATSAPP_NUMBER, 
@@ -650,7 +811,8 @@ def admin():
         ADMIN_HTML, 
         leads=LEADS_DATABASE, 
         logo=CURRENT_LOGO_URL,
-        fallback_logo=FALLBACK_SVG
+        fallback_logo=FALLBACK_SVG,
+        stats=get_visit_stats()
     )
 
 @app.route('/admin_login', methods=['POST'])
