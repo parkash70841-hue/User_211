@@ -1,4 +1,4 @@
-import os
+iimport os
 import re
 import html
 import requests
@@ -21,8 +21,8 @@ WHATSAPP_NUMBER = "917347504051"
 YOUR_EMAIL = "kaka70841@gmail.com"
 ADMIN_PASSWORD = "admin_password_2026"
 
-# Directly embedded image path or static URL to guarantee it never breaks
-LOGO_URL = "/static/logo.jpg"
+# Dynamic Logo Settings (Can be updated via /admin)
+CURRENT_LOGO_URL = "https://i.ibb.co/6R2N2T9/11517-2.jpg"  # Default fallback image
 FALLBACK_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2310B981'><circle cx='50' cy='50' r='50' fill='%231E293B'/><text x='50%' y='55%' font-family='sans-serif' font-weight='800' font-size='20' fill='%2310B981' text-anchor='middle' dominant-baseline='middle'>U211</text></svg>"
 
 LEADS_DATABASE = []
@@ -40,7 +40,7 @@ def apply_security_headers(response):
 def sanitize_input(text):
     if not text:
         return ""
-    return html.escape(text.strip())[:150]
+    return html.escape(text.strip())[:250]
 
 def send_telegram_lead(name, phone, service, details):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
@@ -83,7 +83,7 @@ SITE_HTML = """
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Sleek Modern Header */
+        /* Sleek Header */
         header { 
             background: rgba(11, 15, 23, 0.9); 
             backdrop-filter: blur(16px); 
@@ -351,7 +351,6 @@ SITE_HTML = """
         
         <div class="card-grid">
             
-            <!-- Service 1: Web Development Setup -->
             <div class="service-card">
                 <span class="price-tag">₹1,999</span>
                 <div class="card-title">💻 Web App Setup</div>
@@ -363,7 +362,6 @@ SITE_HTML = """
                 </ul>
             </div>
 
-            <!-- Service 2: Website Maintenance -->
             <div class="service-card">
                 <span class="price-tag">₹299 / Mo</span>
                 <div class="card-title">⚙️ Web Maintenance</div>
@@ -375,7 +373,6 @@ SITE_HTML = """
                 </ul>
             </div>
 
-            <!-- Service 3: Diet & Workout Combo -->
             <div class="service-card" style="border-color: rgba(16, 185, 129, 0.4);">
                 <span class="price-tag">₹349 (COMBO)</span>
                 <div class="card-title">🔥 Diet + Workout Combo</div>
@@ -387,7 +384,6 @@ SITE_HTML = """
                 </ul>
             </div>
 
-            <!-- Service 4: Individual Fitness Plans -->
             <div class="service-card">
                 <span class="price-tag">₹199 Each</span>
                 <div class="card-title">🏋️‍♂️ Single Plan (Diet or Workout)</div>
@@ -399,7 +395,6 @@ SITE_HTML = """
                 </ul>
             </div>
 
-            <!-- Service 5: Poster Design -->
             <div class="service-card">
                 <span class="price-tag">₹149 / Poster</span>
                 <div class="card-title">🖼️ Poster Design</div>
@@ -411,7 +406,6 @@ SITE_HTML = """
                 </ul>
             </div>
 
-            <!-- Service 6: Instagram Post Design -->
             <div class="service-card">
                 <span class="price-tag">₹99 / Post</span>
                 <div class="card-title">🎨 Instagram Post Design</div>
@@ -490,7 +484,7 @@ SITE_HTML = """
 """
 
 # ==========================================
-# SECURE ADMIN PANEL HTML
+# SECURE ADMIN PANEL HTML (WITH LOGO MANAGER)
 # ==========================================
 ADMIN_HTML = """
 <!DOCTYPE html>
@@ -505,8 +499,14 @@ ADMIN_HTML = """
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 15px; margin-bottom: 20px; }
         .brand-container { display: flex; align-items: center; gap: 10px; }
         .brand-logo { font-size: 18px; font-weight: 800; color: #ffffff; }
-        .avatar-img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid #10b981; }
+        .avatar-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid #10b981; }
         
+        .manager-card { background: rgba(15, 23, 42, 0.8); border: 1px solid #10b981; border-radius: 14px; padding: 20px; margin-bottom: 25px; }
+        .manager-card h3 { font-size: 16px; margin-bottom: 6px; color: #ffffff; }
+        .manager-card p { font-size: 12px; color: #94a3b8; margin-bottom: 14px; }
+        .form-control { width: 100%; padding: 10px 12px; background: #0b0f17; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; font-size: 12px; margin-bottom: 10px; outline: none; }
+        .save-btn { background: #10b981; color: #0b0f17; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer; }
+
         .lead-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
         .lead-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .lead-name { font-weight: 800; font-size: 16px; color: #ffffff; }
@@ -516,6 +516,7 @@ ADMIN_HTML = """
         .btn-action { flex: 1; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 800; }
         .btn-call { background: rgba(255, 255, 255, 0.1); color: white; }
         .btn-wa { background: #10b981; color: #0b0f17; }
+        .toast { background: #10b981; color: #0b0f17; padding: 10px; border-radius: 8px; text-align: center; font-weight: 800; font-size: 12px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -526,6 +527,27 @@ ADMIN_HTML = """
         </div>
         <a href="/admin_logout" style="color:#94a3b8; text-decoration:none; font-size:12px; font-weight:600;">Logout</a>
     </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="toast">✅ {{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Logo Manager Section -->
+    <div class="manager-card">
+        <h3>🖼️ Live Logo Manager</h3>
+        <p>Paste any direct image link below (e.g. from ImgBB or PostImages) to change your website logo instantly!</p>
+        <form action="/admin/update_logo" method="POST">
+            <input type="url" name="logo_url" class="form-control" placeholder="https://i.ibb.co/your-image.jpg" value="{{ logo }}" required>
+            <button type="submit" class="save-btn">UPDATE WEBSITE LOGO 🚀</button>
+        </form>
+    </div>
+
+    <h3>📥 Client Orders & Inquiries</h3>
+    <br>
 
     {% if leads %}
         {% for l in leads[::-1] %}
@@ -566,7 +588,7 @@ def home():
         phone=YOUR_PHONE, 
         email=YOUR_EMAIL, 
         insta=INSTAGRAM_HANDLE, 
-        logo=LOGO_URL,
+        logo=CURRENT_LOGO_URL,
         fallback_logo=FALLBACK_SVG
     )
 
@@ -611,7 +633,7 @@ def admin():
     return render_template_string(
         ADMIN_HTML, 
         leads=LEADS_DATABASE, 
-        logo=LOGO_URL,
+        logo=CURRENT_LOGO_URL,
         fallback_logo=FALLBACK_SVG
     )
 
@@ -625,6 +647,16 @@ def admin_login():
 def admin_logout():
     session.pop('is_agency_admin', None)
     return redirect(url_for('home'))
+
+@app.route('/admin/update_logo', methods=['POST'])
+def update_logo():
+    global CURRENT_LOGO_URL
+    if session.get('is_agency_admin'):
+        new_url = request.form.get('logo_url', '').strip()
+        if new_url:
+            CURRENT_LOGO_URL = new_url
+            flash("Logo Updated Successfully!")
+    return redirect(url_for('admin'))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
