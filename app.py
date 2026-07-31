@@ -18,7 +18,7 @@ YOUR_BRAND_NAME = "USER_211"
 INSTAGRAM_HANDLE = "user_211"
 YOUR_PHONE = "7347504051"
 WHATSAPP_NUMBER = "917347504051"
-YOUR_EMAIL = "kaka70841@gmail.com"
+YOUR_EMAIL = "user.official.211@gmail.com"
 ADMIN_PASSWORD = "admin_password_2026"
 
 # Permanent Direct Logo Link
