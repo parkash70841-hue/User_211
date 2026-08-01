@@ -165,7 +165,7 @@ SITE_HTML = """
         }
 
         .hero { 
-            padding: 50px 20px 40px; 
+            padding: 45px 20px 35px; 
             text-align: center; 
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, rgba(11, 15, 23, 0) 70%);
@@ -191,22 +191,22 @@ SITE_HTML = """
             margin-bottom: 16px; 
             letter-spacing: 0.5px;
         }
-        .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; color: #ffffff; letter-spacing: -0.5px; }
-        .hero p { font-size: 14px; color: #94a3b8; margin-bottom: 24px; max-width: 480px; margin-left: auto; margin-right: auto; }
+        .hero h1 { font-size: 26px; font-weight: 800; line-height: 1.3; margin-bottom: 10px; color: #ffffff; letter-spacing: -0.5px; }
+        .hero p { font-size: 13px; color: #94a3b8; margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; }
         .hero-cta { 
             display: inline-block; 
             background: #10b981; 
             color: #0b0f17; 
-            padding: 13px 28px; 
+            padding: 12px 26px; 
             border-radius: 30px; 
             font-weight: 800; 
             text-decoration: none; 
-            font-size: 14px; 
+            font-size: 13px; 
             box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25); 
         }
 
         .response-badge {
-            margin-top: 18px;
+            margin-top: 16px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -232,24 +232,21 @@ SITE_HTML = """
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        .container { padding: 24px 20px; max-width: 600px; margin: auto; }
-        .section-title { font-size: 18px; font-weight: 800; margin: 30px 0 16px; color: #ffffff; text-align: center; letter-spacing: -0.3px; }
+        .container { padding: 20px; max-width: 600px; margin: auto; }
 
-        .sample-box {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 25px;
+        .category-header {
+            font-size: 16px;
+            font-weight: 800;
+            color: #10b981;
+            margin: 24px 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+            padding-bottom: 6px;
         }
-        .sample-title { font-size: 15px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
-        .sample-sub { font-size: 12px; color: #94a3b8; margin-bottom: 16px; }
-        .sample-buttons { display: flex; gap: 10px; justify-content: center; }
-        .btn-dm-insta { background: rgba(255, 255, 255, 0.08); color: white; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.12); }
-        .btn-dm-wa { background: #10b981; color: #0b0f17; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; }
 
+        /* Grid Cards */
         .card-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
         .service-card { 
             background: rgba(15, 23, 42, 0.75); 
@@ -283,9 +280,24 @@ SITE_HTML = """
             margin-right: 4px;
         }
         .card-title { font-size: 16px; font-weight: 800; color: #ffffff; line-height: 1.3; }
-        .card-sub { font-size: 12px; color: #94a3b8; font-weight: 600; margin-bottom: 14px; }
+        .card-sub { font-size: 12px; color: #94a3b8; font-weight: 600; margin-bottom: 12px; }
         .card-list { font-size: 12px; color: #cbd5e1; list-style: none; }
         .card-list li { margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+
+        .sample-box {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 25px;
+        }
+        .sample-title { font-size: 15px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+        .sample-sub { font-size: 12px; color: #94a3b8; margin-bottom: 16px; }
+        .sample-buttons { display: flex; gap: 10px; justify-content: center; }
+        .btn-dm-insta { background: rgba(255, 255, 255, 0.08); color: white; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.12); }
+        .btn-dm-wa { background: #10b981; color: #0b0f17; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; }
 
         .rating-box {
             background: rgba(15, 23, 42, 0.75);
@@ -461,8 +473,8 @@ SITE_HTML = """
         <img src="{{ logo }}" class="hero-avatar" alt="USER_211" onerror="this.src='{{ fallback_logo }}'">
         <br>
         <span class="hero-badge">OFFICIAL FREELANCE STUDIO</span>
-        <h1>Websites, Fitness Plans & Graphic Designs</h1>
-        <p>High-performing web development, custom fitness schedules, and social media content created directly for you.</p>
+        <h1>Web Building, Fitness & Creative Designs</h1>
+        <p>Your one-stop digital hub for custom web apps, fitness transformations, and high-converting graphics.</p>
         
         <a href="#order-form" class="hero-cta">HIRE USER_211 →</a>
         
@@ -475,87 +487,70 @@ SITE_HTML = """
 
     <div class="container">
         
-        <!-- Sample DM Box -->
-        <div class="sample-box">
-            <div class="sample-title">🎨 Want to see Work Samples or Portfolio?</div>
-            <div class="sample-sub">DM me directly on Instagram or WhatsApp to check out recent web applications, poster designs, or diet plans.</div>
-            <div class="sample-buttons">
-                <a href="https://instagram.com/{{ insta }}" target="_blank" class="btn-dm-insta">DM on Instagram</a>
-                <a href="https://wa.me/{{ whatsapp }}?text=Hi%20USER_211,%20please%20share%20your%20work%20samples" target="_blank" class="btn-dm-wa">DM on WhatsApp</a>
-            </div>
-        </div>
-
-        <div class="section-title">Services & Rates</div>
+        <!-- CATEGORY 1: WEB DEVELOPMENT & HOSTING -->
+        <div class="category-header">💻 Web Development & Server Plans</div>
         
         <div class="card-grid">
             
-            <!-- Web Building Card -->
+            <!-- Simplified Web Building Card -->
             <div class="service-card" style="border-color: rgba(16, 185, 129, 0.4);">
                 <div class="card-header-flex">
                     <div class="card-title">💻 Web Building</div>
-                    <span class="price-tag"><span class="old-price">₹5,000</span> ₹2,500 (50% OFF)</span>
+                    <span class="price-tag"><span class="old-price">₹5,000</span> ₹2,500</span>
                 </div>
                 <div class="card-sub">Complete Business or E-Commerce Site</div>
                 <ul class="card-list">
-                    <li>✅ Mobile Responsive Design</li>
-                    <li>✅ Admin Dashboard & Telegram Live Alerts</li>
-                    <li>🔥 <b>BUNDLE DEAL:</b> Buy with ₹799 plan & Web Building drops to <b style="color:#10b981;"><span class="old-price">₹5,000</span> ₹500 (90% OFF)!</b></li>
+                    <li>✅ Interactive Design & 3D Visual Effects</li>
+                    <li>✅ Secure Admin Dashboard & Instant Telegram Alerts</li>
+                    <li>🔥 <b>Special Offer:</b> Get Web Building for <b>₹500 (90% OFF)</b> when combined with the ₹799/mo Maintenance Plan!</li>
                 </ul>
             </div>
 
-            <!-- Web Maintenance 299/mo -->
+            <!-- Simplified Clean Maintenance Card -->
+            <div class="service-card" style="border-color: rgba(16, 185, 129, 0.3);">
+                <div class="card-header-flex">
+                    <div class="card-title">🚀 Web Maintenance & Hosting</div>
+                    <span class="price-tag">₹799 / Mo</span>
+                </div>
+                <div class="card-sub">Custom Domain, High Speed & Full Technical Support</div>
+                <ul class="card-list">
+                    <li>✅ <b>Monthly Plan:</b> <span class="old-price">₹1,499</span> <b>₹799 / Month</b></li>
+                    <li>✅ <b>Yearly Package:</b> <span class="old-price">₹14,999</span> <b>₹7,999 / Year</b></li>
+                    <li>✅ Custom Domain Setup Included (`.com` / `.in`)</li>
+                    <li>✅ Ultra-Fast Server Speed & Smooth Performance</li>
+                    <li>✅ Free Bug Fixes, Updates & Code Adjustments</li>
+                </ul>
+            </div>
+
+            <!-- Basic Subdomain Maintenance -->
             <div class="service-card">
                 <div class="card-header-flex">
-                    <div class="card-title">⚙️ Web Maintenance (Subdomain)</div>
+                    <div class="card-title">⚙️ Subdomain Maintenance</div>
                     <span class="price-tag">₹299 / Mo</span>
                 </div>
                 <div class="card-sub">Basic Server & Subdomain Support</div>
                 <ul class="card-list">
                     <li>✅ Free Subdomain Deployment</li>
-                    <li>✅ 0.1 CPU Resource Allocation</li>
+                    <li>✅ 0.1 CPU Allocation</li>
                 </ul>
             </div>
 
-            <!-- Web Maintenance 799/mo & Yearly 7999 -->
-            <div class="service-card" style="border-color: rgba(16, 185, 129, 0.3);">
-                <div class="card-header-flex">
-                    <div class="card-title">🚀 Web Maintenance (Custom Domain)</div>
-                    <span class="price-tag">₹799 / Mo OR ₹7,999 / Year</span>
-                </div>
-                <div class="card-sub">Premium Custom Domain & High Performance</div>
-                <ul class="card-list">
-                    <li>✅ Custom Domain Setup Included</li>
-                    <li>✅ Best & Ultra-Smooth Server Performance</li>
-                    <li>✅ Free Bug Fixes, Problem Support & Code Changes</li>
-                    <li>🔥 <b>UNLOCKS ₹500 WEB BUILDING DEAL (90% OFF)!</b></li>
-                </ul>
-            </div>
+        </div>
 
-            <!-- Premium Server Maintenance 700/mo & Yearly 7999 -->
-            <div class="service-card">
-                <div class="card-header-flex">
-                    <div class="card-title">⚡ High-Speed Server Maintenance</div>
-                    <span class="price-tag"><span class="old-price">₹1,499</span> ₹700 / Mo</span>
-                </div>
-                <div class="card-sub">Dedicated Server Boost & Priority SLA</div>
-                <ul class="card-list">
-                    <li>✅ <b>Monthly Plan:</b> <span class="old-price">₹1,499</span> <b>₹700 / Month</b></li>
-                    <li>✅ <b>Yearly Package:</b> <span class="old-price">₹14,999</span> <b>₹7,999 / Year</b></li>
-                    <li>✅ High Performance CPU Allocation & Fast Loading</li>
-                    <li>✅ Dedicated Support & Unlimited Revisions</li>
-                </ul>
-            </div>
+        <!-- CATEGORY 2: FITNESS & DIET -->
+        <div class="category-header">🔥 Fitness & Workout Transformation</div>
 
+        <div class="card-grid">
             <div class="service-card">
                 <div class="card-header-flex">
                     <div class="card-title">🔥 Diet + Workout Combo</div>
-                    <span class="price-tag">₹349 (COMBO)</span>
+                    <span class="price-tag">₹349</span>
                 </div>
-                <div class="card-sub">Full Fitness Transformation Package</div>
+                <div class="card-sub">Full Personal Fitness Package</div>
                 <ul class="card-list">
                     <li>✅ Customized Diet Chart (Veg/Non-Veg)</li>
                     <li>✅ Home or Gym Workout Routine</li>
-                    <li>✅ Direct WhatsApp Guidance</li>
+                    <li>✅ Direct WhatsApp Guidance & Weekly Check-ins</li>
                 </ul>
             </div>
 
@@ -568,10 +563,14 @@ SITE_HTML = """
                 <ul class="card-list">
                     <li>✅ Workout Plan Only: ₹199</li>
                     <li>✅ Diet Plan Only: ₹199</li>
-                    <li>✅ Tailored to Your Specific Body Goal</li>
                 </ul>
             </div>
+        </div>
 
+        <!-- CATEGORY 3: GRAPHICS & SOCIAL MEDIA -->
+        <div class="category-header">🎨 Graphic Design & Social Media</div>
+
+        <div class="card-grid">
             <div class="service-card">
                 <div class="card-header-flex">
                     <div class="card-title">🖼️ Poster Design</div>
@@ -579,25 +578,32 @@ SITE_HTML = """
                 </div>
                 <div class="card-sub">Shop, Gym & Business Posters</div>
                 <ul class="card-list">
-                    <li>✅ Custom Creative Graphics & Layouts</li>
-                    <li>✅ High-Resolution Print Ready Files</li>
+                    <li>✅ Custom Creative Layouts (Print Ready)</li>
                     <li>✅ 24-Hour Express Delivery</li>
                 </ul>
             </div>
 
             <div class="service-card">
                 <div class="card-header-flex">
-                    <div class="card-title">🎨 Instagram Post Design</div>
+                    <div class="card-title">🎨 Instagram Post / Reel Design</div>
                     <span class="price-tag">₹99 / Post</span>
                 </div>
                 <div class="card-sub">Social Media Banners & Stories</div>
                 <ul class="card-list">
-                    <li>✅ Instagram Reels/Posts Graphics</li>
+                    <li>✅ High Quality Reels & Post Graphics</li>
                     <li>✅ Modern Clean Layouts</li>
-                    <li>✅ Optimized for Mobile Screens</li>
                 </ul>
             </div>
+        </div>
 
+        <!-- Work Samples Box -->
+        <div class="sample-box">
+            <div class="sample-title">🎨 Want to see Work Samples or Portfolio?</div>
+            <div class="sample-sub">DM me directly on Instagram or WhatsApp to check out recent web applications, poster designs, or diet plans.</div>
+            <div class="sample-buttons">
+                <a href="https://instagram.com/{{ insta }}" target="_blank" class="btn-dm-insta">DM on Instagram</a>
+                <a href="https://wa.me/{{ whatsapp }}?text=Hi%20USER_211,%20please%20share%20your%20work%20samples" target="_blank" class="btn-dm-wa">DM on WhatsApp</a>
+            </div>
         </div>
 
         <!-- Rating Section -->
@@ -618,7 +624,7 @@ SITE_HTML = """
         </div>
 
         <!-- FAQ Section -->
-        <div class="section-title">Frequently Asked Questions</div>
+        <div class="section-title" style="text-align:center; margin-top:30px; font-size:16px;">Frequently Asked Questions</div>
         
         <div class="faq-card">
             <details>
@@ -640,7 +646,7 @@ SITE_HTML = """
             <details>
                 <summary>Do you offer revisions?</summary>
                 <div class="faq-answer">
-                    Yes! We offer <b>unlimited minor revisions</b> on graphic poster designs and fitness plans until you are completely satisfied.
+                    Yes! We offer <b>unlimited minor revisions</b> on graphic poster designs, web code tweaks, and fitness plans until you are completely satisfied.
                 </div>
             </details>
 
@@ -671,19 +677,17 @@ SITE_HTML = """
                     <input type="text" name="name" class="form-control" placeholder="e.g. Rahul Verma" required>
                 </div>
                 <div class="form-group">
-                    <label>MOBILE / WHATSAPP NUMBER</label>
+                    <label>PHONE / WHATSAPP NUMBER</label>
                     <input type="tel" name="phone" class="form-control" placeholder="10-Digit Mobile Number" required>
                 </div>
                 <div class="form-group">
                     <label>SELECT SERVICE</label>
                     <select name="service" class="form-control">
-                        <option value="Web Building (₹2,500 - 50% OFF)">💻 Standard Web Building (₹2,500)</option>
-                        <option value="Bundle Deal: Web Building + ₹799 Plan (₹500 Web Cost - 90% OFF)">🔥 BUNDLE DEAL: Web Building (₹500) + ₹799/mo Maintenance</option>
-                        <option value="Web Maintenance - Subdomain (₹299/mo)">⚙️ Web Maintenance - Subdomain (₹299/mo)</option>
-                        <option value="Web Maintenance - Custom Domain (₹799/mo)">🚀 Web Maintenance - Custom Domain (₹799/mo)</option>
-                        <option value="Web Maintenance - Custom Domain Yearly (₹7,999/yr)">🎁 Web Maintenance - Custom Domain Yearly (₹7,999/yr)</option>
-                        <option value="High-Speed Maintenance - Monthly (₹700/mo)">⚡ High-Speed Maintenance (₹700/mo - Was ₹1,499)</option>
-                        <option value="High-Speed Maintenance - Yearly (₹7,999/yr)">⚡ High-Speed Maintenance Yearly (₹7,999/yr - Was ₹14,999)</option>
+                        <option value="Standard Web Building (₹2,500)">💻 Standard Web Building (₹2,500)</option>
+                        <option value="Bundle Deal: Web Building + ₹799 Plan (₹500 Web Cost)">🔥 BUNDLE DEAL: Web Building (₹500) + ₹799/mo Maintenance</option>
+                        <option value="Web Maintenance - Monthly (₹799/mo)">🚀 Web Maintenance - Monthly (₹799/mo)</option>
+                        <option value="Web Maintenance - Yearly (₹7,999/yr)">🎁 Web Maintenance - Yearly Package (₹7,999/yr)</option>
+                        <option value="Subdomain Maintenance (₹299/mo)">⚙️ Subdomain Maintenance (₹299/mo)</option>
                         <option value="Diet + Workout Combo (₹349)">🔥 Diet + Workout Combo (₹349)</option>
                         <option value="Workout Plan Only (₹199)">🏋️‍♂️ Workout Plan Only (₹199)</option>
                         <option value="Diet Plan Only (₹199)">🥗 Diet Plan Only (₹199)</option>
@@ -709,7 +713,7 @@ SITE_HTML = """
 
     </div>
 
-    <!-- Floating Mobile Bottom Bar -->
+    <!-- Floating Bottom Bar -->
     <div class="bottom-bar">
         <a href="https://wa.me/{{ whatsapp }}?text=Hi%20USER_211,%20I%20want%20to%20hire%20you%20for%20your%20services" class="btn-whatsapp" target="_blank">
             💬 WhatsApp Chat
@@ -947,7 +951,7 @@ def home():
 def submit_lead():
     name = sanitize_input(request.form.get('name', ''))
     phone = sanitize_input(request.form.get('phone', ''))
-    service = sanitize_input(request.form.get('service', 'Web Building'))
+    service = sanitize_input(request.form.get('service', 'Standard Web Building'))
     details = sanitize_input(request.form.get('details', 'None'))
 
     clean_phone = re.sub(r'\D', '', phone)
