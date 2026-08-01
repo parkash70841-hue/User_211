@@ -104,7 +104,6 @@ SITE_HTML = """
             overflow-x: hidden;
         }
 
-        /* 3D Background Canvas */
         #bg-3d-canvas {
             position: fixed;
             top: 0;
@@ -120,7 +119,6 @@ SITE_HTML = """
             z-index: 10;
         }
 
-        /* Sleek Header */
         header { 
             background: rgba(11, 15, 23, 0.85); 
             backdrop-filter: blur(16px); 
@@ -166,7 +164,6 @@ SITE_HTML = """
             font-weight: 800; 
         }
 
-        /* Hero Banner */
         .hero { 
             padding: 50px 20px 40px; 
             text-align: center; 
@@ -208,7 +205,6 @@ SITE_HTML = """
             box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25); 
         }
 
-        /* Response Time Badge */
         .response-badge {
             margin-top: 18px;
             display: inline-flex;
@@ -239,7 +235,6 @@ SITE_HTML = """
         .container { padding: 24px 20px; max-width: 600px; margin: auto; }
         .section-title { font-size: 18px; font-weight: 800; margin: 30px 0 16px; color: #ffffff; text-align: center; letter-spacing: -0.3px; }
 
-        /* Sample Box */
         .sample-box {
             background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(12px);
@@ -255,7 +250,6 @@ SITE_HTML = """
         .btn-dm-insta { background: rgba(255, 255, 255, 0.08); color: white; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.12); }
         .btn-dm-wa { background: #10b981; color: #0b0f17; text-decoration: none; padding: 10px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; }
 
-        /* Grid Cards */
         .card-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
         .service-card { 
             background: rgba(15, 23, 42, 0.75); 
@@ -282,12 +276,17 @@ SITE_HTML = """
             white-space: nowrap;
             flex-shrink: 0;
         }
+        .old-price {
+            text-decoration: line-through;
+            color: #64748b;
+            font-size: 11px;
+            margin-right: 4px;
+        }
         .card-title { font-size: 16px; font-weight: 800; color: #ffffff; line-height: 1.3; }
         .card-sub { font-size: 12px; color: #94a3b8; font-weight: 600; margin-bottom: 14px; }
         .card-list { font-size: 12px; color: #cbd5e1; list-style: none; }
         .card-list li { margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
 
-        /* Rating & Review Section */
         .rating-box {
             background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(12px);
@@ -311,7 +310,6 @@ SITE_HTML = """
         }
         .reviewer-name { font-weight: 800; color: #ffffff; display: flex; justify-content: space-between; margin-bottom: 4px; }
 
-        /* FAQ Accordion */
         .faq-card {
             background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(12px);
@@ -346,7 +344,6 @@ SITE_HTML = """
             line-height: 1.6;
         }
 
-        /* Form Card */
         .form-card { 
             background: rgba(15, 23, 42, 0.85); 
             backdrop-filter: blur(16px);
@@ -401,7 +398,6 @@ SITE_HTML = """
         .contact-row { margin-bottom: 8px; }
         .contact-row b { color: #f8fafc; }
 
-        /* Floating Bottom Bar */
         .bottom-bar { 
             position: fixed; 
             bottom: 0; 
@@ -471,7 +467,6 @@ SITE_HTML = """
         <a href="#order-form" class="hero-cta">HIRE USER_211 →</a>
         
         <br>
-        <!-- Dynamic Response Time Badge -->
         <div class="response-badge">
             <span class="pulse-dot"></span>
             <span>⚡ Usually replies within 30 minutes</span>
@@ -494,33 +489,46 @@ SITE_HTML = """
         
         <div class="card-grid">
             
-            <div class="service-card">
+            <!-- Updated Web Building Title -->
+            <div class="service-card" style="border-color: rgba(16, 185, 129, 0.4);">
                 <div class="card-header-flex">
-                    <div class="card-title">💻 Web App Setup</div>
-                    <span class="price-tag">₹1,999</span>
+                    <div class="card-title">💻 Web Building</div>
+                    <span class="price-tag"><span class="old-price">₹5,000</span> ₹2,500 (50% OFF)</span>
                 </div>
                 <div class="card-sub">Complete Business or E-Commerce Site</div>
                 <ul class="card-list">
                     <li>✅ Mobile Responsive Design</li>
                     <li>✅ Admin Dashboard & Telegram Live Alerts</li>
-                    <li>✅ Free Hosting Deployment</li>
+                    <li>✅ Free Hosting Deployment Setup</li>
                 </ul>
             </div>
 
             <div class="service-card">
                 <div class="card-header-flex">
-                    <div class="card-title">⚙️ Web Maintenance</div>
+                    <div class="card-title">⚙️ Web Maintenance (Subdomain)</div>
                     <span class="price-tag">₹299 / Mo</span>
                 </div>
-                <div class="card-sub">Ongoing Support & Upgrades</div>
+                <div class="card-sub">Basic Server & Subdomain Support</div>
                 <ul class="card-list">
-                    <li>✅ Regular Code & Security Backups</li>
-                    <li>✅ Content Updates & Bug Fixes</li>
-                    <li>✅ Server Uptime Monitoring</li>
+                    <li>✅ Free Subdomain Deployment</li>
+                    <li>✅ 0.1 CPU Resource Allocation</li>
                 </ul>
             </div>
 
-            <div class="service-card" style="border-color: rgba(16, 185, 129, 0.4);">
+            <div class="service-card">
+                <div class="card-header-flex">
+                    <div class="card-title">🚀 Web Maintenance (Custom Domain)</div>
+                    <span class="price-tag">₹799 / Mo</span>
+                </div>
+                <div class="card-sub">Premium Custom Domain & High Performance</div>
+                <ul class="card-list">
+                    <li>✅ Custom Domain Setup Included</li>
+                    <li>✅ Best & Ultra-Smooth Server Performance</li>
+                    <li>✅ Free Bug Fixes, Problem Support & Code Changes</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
                 <div class="card-header-flex">
                     <div class="card-title">🔥 Diet + Workout Combo</div>
                     <span class="price-tag">₹349 (COMBO)</span>
@@ -574,7 +582,7 @@ SITE_HTML = """
 
         </div>
 
-        <!-- Rating & Testimonials Section -->
+        <!-- Rating Section -->
         <div class="rating-box">
             <div class="rating-score">4.9 / 5.0</div>
             <div class="stars">★★★★★</div>
@@ -651,8 +659,9 @@ SITE_HTML = """
                 <div class="form-group">
                     <label>SELECT SERVICE</label>
                     <select name="service" class="form-control">
-                        <option value="Web App Setup (₹1,999)">💻 Web App Setup (₹1,999)</option>
-                        <option value="Web Maintenance (₹299/mo)">⚙️ Web Maintenance (₹299/mo)</option>
+                        <option value="Web Building (₹2,500 - 50% OFF)">💻 Web Building (₹2,500 - 50% OFF)</option>
+                        <option value="Web Maintenance - Subdomain (₹299/mo)">⚙️ Web Maintenance - Subdomain (₹299/mo)</option>
+                        <option value="Web Maintenance - Custom Domain (₹799/mo)">🚀 Web Maintenance - Custom Domain (₹799/mo)</option>
                         <option value="Diet + Workout Combo (₹349)">🔥 Diet + Workout Combo (₹349)</option>
                         <option value="Workout Plan Only (₹199)">🏋️‍♂️ Workout Plan Only (₹199)</option>
                         <option value="Diet Plan Only (₹199)">🥗 Diet Plan Only (₹199)</option>
@@ -916,7 +925,7 @@ def home():
 def submit_lead():
     name = sanitize_input(request.form.get('name', ''))
     phone = sanitize_input(request.form.get('phone', ''))
-    service = sanitize_input(request.form.get('service', 'Web Development'))
+    service = sanitize_input(request.form.get('service', 'Web Building'))
     details = sanitize_input(request.form.get('details', 'None'))
 
     clean_phone = re.sub(r'\D', '', phone)
