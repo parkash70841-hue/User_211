@@ -489,7 +489,7 @@ SITE_HTML = """
         
         <div class="card-grid">
             
-            <!-- Updated Web Building Title -->
+            <!-- Web Building Card -->
             <div class="service-card" style="border-color: rgba(16, 185, 129, 0.4);">
                 <div class="card-header-flex">
                     <div class="card-title">💻 Web Building</div>
@@ -499,10 +499,11 @@ SITE_HTML = """
                 <ul class="card-list">
                     <li>✅ Mobile Responsive Design</li>
                     <li>✅ Admin Dashboard & Telegram Live Alerts</li>
-                    <li>✅ Free Hosting Deployment Setup</li>
+                    <li>🔥 <b>BUNDLE DEAL:</b> Buy with ₹799 plan & Web Building drops to <b style="color:#10b981;"><span class="old-price">₹5,000</span> ₹500 (90% OFF)!</b></li>
                 </ul>
             </div>
 
+            <!-- Web Maintenance 299/mo -->
             <div class="service-card">
                 <div class="card-header-flex">
                     <div class="card-title">⚙️ Web Maintenance (Subdomain)</div>
@@ -515,16 +516,33 @@ SITE_HTML = """
                 </ul>
             </div>
 
-            <div class="service-card">
+            <!-- Web Maintenance 799/mo & Yearly 7999 -->
+            <div class="service-card" style="border-color: rgba(16, 185, 129, 0.3);">
                 <div class="card-header-flex">
                     <div class="card-title">🚀 Web Maintenance (Custom Domain)</div>
-                    <span class="price-tag">₹799 / Mo</span>
+                    <span class="price-tag">₹799 / Mo OR ₹7,999 / Year</span>
                 </div>
                 <div class="card-sub">Premium Custom Domain & High Performance</div>
                 <ul class="card-list">
                     <li>✅ Custom Domain Setup Included</li>
                     <li>✅ Best & Ultra-Smooth Server Performance</li>
                     <li>✅ Free Bug Fixes, Problem Support & Code Changes</li>
+                    <li>🔥 <b>UNLOCKS ₹500 WEB BUILDING DEAL (90% OFF)!</b></li>
+                </ul>
+            </div>
+
+            <!-- Premium Server Maintenance 700/mo & Yearly 7999 -->
+            <div class="service-card">
+                <div class="card-header-flex">
+                    <div class="card-title">⚡ High-Speed Server Maintenance</div>
+                    <span class="price-tag"><span class="old-price">₹1,499</span> ₹700 / Mo</span>
+                </div>
+                <div class="card-sub">Dedicated Server Boost & Priority SLA</div>
+                <ul class="card-list">
+                    <li>✅ <b>Monthly Plan:</b> <span class="old-price">₹1,499</span> <b>₹700 / Month</b></li>
+                    <li>✅ <b>Yearly Package:</b> <span class="old-price">₹14,999</span> <b>₹7,999 / Year</b></li>
+                    <li>✅ High Performance CPU Allocation & Fast Loading</li>
+                    <li>✅ Dedicated Support & Unlimited Revisions</li>
                 </ul>
             </div>
 
@@ -659,9 +677,13 @@ SITE_HTML = """
                 <div class="form-group">
                     <label>SELECT SERVICE</label>
                     <select name="service" class="form-control">
-                        <option value="Web Building (₹2,500 - 50% OFF)">💻 Web Building (₹2,500 - 50% OFF)</option>
+                        <option value="Web Building (₹2,500 - 50% OFF)">💻 Standard Web Building (₹2,500)</option>
+                        <option value="Bundle Deal: Web Building + ₹799 Plan (₹500 Web Cost - 90% OFF)">🔥 BUNDLE DEAL: Web Building (₹500) + ₹799/mo Maintenance</option>
                         <option value="Web Maintenance - Subdomain (₹299/mo)">⚙️ Web Maintenance - Subdomain (₹299/mo)</option>
                         <option value="Web Maintenance - Custom Domain (₹799/mo)">🚀 Web Maintenance - Custom Domain (₹799/mo)</option>
+                        <option value="Web Maintenance - Custom Domain Yearly (₹7,999/yr)">🎁 Web Maintenance - Custom Domain Yearly (₹7,999/yr)</option>
+                        <option value="High-Speed Maintenance - Monthly (₹700/mo)">⚡ High-Speed Maintenance (₹700/mo - Was ₹1,499)</option>
+                        <option value="High-Speed Maintenance - Yearly (₹7,999/yr)">⚡ High-Speed Maintenance Yearly (₹7,999/yr - Was ₹14,999)</option>
                         <option value="Diet + Workout Combo (₹349)">🔥 Diet + Workout Combo (₹349)</option>
                         <option value="Workout Plan Only (₹199)">🏋️‍♂️ Workout Plan Only (₹199)</option>
                         <option value="Diet Plan Only (₹199)">🥗 Diet Plan Only (₹199)</option>
